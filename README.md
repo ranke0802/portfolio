@@ -6,7 +6,9 @@ React + TypeScript + Vite 기반의 반응형 개인 포트폴리오입니다. F
 
 저장소: [ranke0802/portfolio](https://github.com/ranke0802/portfolio)
 
-운영 사이트: [project-e2f0a.web.app](https://project-e2f0a.web.app)
+운영 사이트: [ranke0802.web.app](https://ranke0802.web.app)
+
+Firebase 프로젝트는 `project-e2f0a`, Hosting 사이트는 `ranke0802`입니다. `portfolio` 배포 대상이 해당 사이트에 연결되어 있으며 운영/PR 미리보기 배포 모두 이 대상을 사용합니다.
 
 ## 로컬 실행
 

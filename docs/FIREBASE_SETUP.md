@@ -1,6 +1,6 @@
 # Firebase Hosting + GitHub Actions 연결 가이드
 
-현재 사이트는 [project-e2f0a.web.app](https://project-e2f0a.web.app)에 배포되어 있습니다. 연결 대상은 `project-e2f0a`, 배포 계정은 `github-portfolio@project-e2f0a.iam.gserviceaccount.com`입니다. 아래는 설정을 재현하거나 새 계정으로 교체할 때의 가이드입니다.
+운영 주소는 [ranke0802.web.app](https://ranke0802.web.app)입니다. Firebase 프로젝트는 `project-e2f0a`, Hosting 사이트는 `ranke0802`, 배포 대상 이름은 `portfolio`입니다. 배포 계정은 `github-portfolio@project-e2f0a.iam.gserviceaccount.com`입니다. 아래는 설정을 재현하거나 새 계정으로 교체할 때의 가이드입니다.
 
 ## 1. Firebase 프로젝트 만들기
 
@@ -28,11 +28,26 @@ npm.cmd run build
 {
   "projects": {
     "default": "project-e2f0a"
+  },
+  "targets": {
+    "project-e2f0a": {
+      "hosting": {
+        "portfolio": ["ranke0802"]
+      }
+    }
   }
 }
 ```
 
 `firebase.json`은 이미 생성되어 있습니다. 배포 폴더는 `dist`, SPA 진입점은 `/index.html`이며, 해시가 포함된 자산과 HTML의 캐시 정책을 구분했습니다. **`firebase init`을 다시 실행할 필요가 없습니다.** 초기화 과정에서 기존 설정과 HTML을 덮어쓰지 않도록 유의하세요.
+
+`firebase.json`의 `hosting.target`은 `portfolio`입니다. 이 이름을 `.firebaserc`에서 실제 사이트 `ranke0802`에 연결했습니다. GitHub Actions의 `target` 값도 `portfolio`이며 `FIREBASE_PROJECT_ID`는 계속 **프로젝트 ID인 `project-e2f0a`**를 사용합니다.
+
+현재 사이트 생성과 대상 연결은 이미 완료했습니다. 다른 프로젝트로 이전할 때는 사용 가능한 사이트 ID를 생성한 뒤 대상을 연결합니다. 같은 프로젝트에서 대상 연결만 복원하려면:
+
+```powershell
+npx.cmd --yes firebase-tools@15.34.0 target:apply hosting portfolio ranke0802 --project project-e2f0a
+```
 
 ## 3. 배포용 서비스 계정과 실제 JSON 키 발급
 
@@ -79,7 +94,7 @@ git push origin main
 
 이미 커밋한 상태라면 [GitHub Actions](https://github.com/ranke0802/portfolio/actions) → **Portfolio CI and Firebase Hosting** → **Run workflow** → 브랜치 **main**으로 실행합니다.
 
-배포 단계가 성공하면 Firebase Hosting 콘솔과 해당 Action 로그에서 실제 주소를 확인합니다. 기본 사이트의 일반적인 주소 형식은 `https://프로젝트ID.web.app`입니다. 최종 주소는 배포 로그를 기준으로 합니다.
+배포 단계가 성공하면 Firebase Hosting 콘솔과 해당 Action 로그에서 실제 주소를 확인합니다. 현재 운영 주소는 `https://ranke0802.web.app`입니다. 사이트 ID가 URL을 결정하며, 프로젝트 ID와 다를 수 있습니다.
 
 | 이벤트                         | 실행 결과                                  |
 | ------------------------------ | ------------------------------------------ |
@@ -114,7 +129,7 @@ npx.cmd --yes firebase-tools@15.34.0 deploy --only hosting --project project-e2f
 - **Secret을 추가했는데 배포 안 됨**: Repository Variable도 함께 등록하고, 과거 실행 대신 `main`에서 새 workflow를 실행합니다.
 - **프로젝트 불일치/JSON 오류**: Secret 원문과 `FIREBASE_PROJECT_ID`, `.firebaserc`가 같은 프로젝트를 가리키는지 확인합니다.
 - **403 / 권한 오류**: Google Cloud에서 선택한 프로젝트와 서비스 계정 역할을 확인합니다. 추가 API 권한이 필요한 경우 로그에 명시된 권한만 검토합니다.
-- **Hosting site 없음**: Firebase Console의 Hosting 시작하기를 완료하고 기본 사이트를 확인합니다.
+- **Hosting site 또는 target 없음**: Firebase Console에 `ranke0802` 사이트가 있는지, `.firebaserc`에서 `portfolio`가 이 사이트에 연결되는지 확인합니다.
 - **fork PR에서 미리보기 없음**: 정상 동작입니다. 외부 PR에는 배포 인증 정보를 제공하지 않습니다.
 - **커스텀 도메인**: Firebase Hosting → 커스텀 도메인 추가에서 DNS 안내를 따릅니다.
 - **키가 노출됨**: Google Cloud에서 해당 키를 삭제하고 새 키를 발급해 GitHub Secret을 교체합니다. Git에서 파일만 지우는 것으로 키가 폐기되지는 않습니다.

@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "project-e2f0a"
-  }
+  },
+  "targets": {
+    "project-e2f0a": {
+      "hosting": {
+        "portfolio": [
+          "ranke0802"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
