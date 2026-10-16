@@ -6,6 +6,8 @@ React + TypeScript + Vite 기반의 반응형 개인 포트폴리오입니다. F
 
 저장소: [ranke0802/portfolio](https://github.com/ranke0802/portfolio)
 
+운영 사이트: [project-e2f0a.web.app](https://project-e2f0a.web.app)
+
 ## 로컬 실행
 
 **Node.js 24 LTS**를 설치한 뒤 새 터미널에서 실행합니다. Node.js 16은 지원하지 않습니다. `.nvmrc`와 `.node-version`에 버전을 명시했습니다.
@@ -64,3 +66,5 @@ Firebase 변수와 Secret이 **모두 비어 있으면 빌드만 수행**하고 
 최초 연결 후 [Actions](https://github.com/ranke0802/portfolio/actions)에서 `Portfolio CI and Firebase Hosting` → `Run workflow` → `main`을 실행하면 추가 커밋 없이 배포할 수 있습니다.
 
 실제 인증 키는 저장소에 커밋하지 않습니다. 다운로드한 JSON은 저장소 밖에 두거나 무시되는 `.secrets/` 안에 보관하세요. Firebase Web SDK, Auth, Firestore는 현재 페이지에서 사용하지 않으며 Hosting만으로 동작합니다.
+
+이 작업에서 발급한 실제 배포 계정 JSON은 로컬 `.secrets/firebase-service-account.json`에 보관됩니다. Git에서 제외되는 비공개 파일입니다. 예시 JSON과 혼동하지 마세요.

@@ -1,6 +1,6 @@
 # Firebase Hosting + GitHub Actions 연결 가이드
 
-이 저장소는 웹사이트와 배포 설정까지 준비되어 있습니다. 실제 Firebase 프로젝트와 배포 계정은 아래 절차로 연결해야 합니다. 설정 전에는 CI만 실행되며, 사이트는 아직 Firebase에 배포되지 않습니다.
+현재 사이트는 [project-e2f0a.web.app](https://project-e2f0a.web.app)에 배포되어 있습니다. 연결 대상은 `project-e2f0a`, 배포 계정은 `github-portfolio@project-e2f0a.iam.gserviceaccount.com`입니다. 아래는 설정을 재현하거나 새 계정으로 교체할 때의 가이드입니다.
 
 ## 1. Firebase 프로젝트 만들기
 
@@ -43,11 +43,14 @@ npm.cmd run build
 3. 공식 Firebase 배포 Action 문서에 따라 역할을 부여합니다.
    - **Firebase Hosting Admin** (`roles/firebasehosting.admin`): Hosting 배포.
    - **API Keys Viewer** (`roles/serviceusage.apiKeysViewer`): Firebase CLI의 API 키 조회.
+   - **Service Usage Consumer** (`roles/serviceusage.serviceUsageConsumer`): Firebase CLI가 프로젝트 API를 사용하는 권한.
    - **Firebase Authentication Admin** (`roles/firebaseauth.admin`): PR 미리보기 URL을 Auth 허용 도메인에 등록하는 동작에 필요. 미리보기 기능을 사용하지 않을 경우 필요 여부를 재검토할 수 있습니다.
 4. 생성한 계정 → 키 → 키 추가 → 새 키 만들기 → **JSON**을 선택해 다운로드합니다.
 5. 파일은 `C:\dev\portfolio` 밖의 개인 보관 위치에 둡니다. 이 저장소 안에 둘 경우 `.secrets/`에만 보관합니다.
 
 Cloud Run/Functions 재작성은 사용하지 않으므로 해당 역할은 추가하지 않습니다. 조직 정책으로 JSON 키 생성이 막혀 있다면 정책을 우회하지 말고 관리자에게 확인하거나 Workload Identity Federation 방식으로 워크플로를 변경해야 합니다.
+
+현재 작업에서 발급한 실제 JSON은 로컬 `.secrets/firebase-service-account.json`에 있습니다. 예시 파일과 달리 유효한 비밀키이며 Git에서 제외됩니다. 키 내용은 문서, 채팅, 소스 코드에 복사하지 않습니다.
 
 참고: [Firebase 배포 Action의 서비스 계정 설정](https://github.com/FirebaseExtended/action-hosting-deploy/blob/main/docs/service-account.md).
 
