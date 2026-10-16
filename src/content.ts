@@ -13,18 +13,19 @@ export const profile = {
   note: "소개 문구와 예시 프로젝트는 포트폴리오를 시작하기 위한 기본 콘텐츠입니다.",
 };
 
-export type Category = "전체" | "웹" | "실험";
+export type Category = "전체" | "웹" | "게임" | "실험";
 export type Project = {
   id: string;
   title: string;
   subtitle: string;
   category: Exclude<Category, "전체">;
-  kind: "portfolio" | "notes" | "dashboard";
+  kind: "portfolio" | "game" | "dashboard";
   tags: string[];
   description: string;
   points: string[];
   sample: boolean;
   url?: string;
+  liveUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -47,19 +48,21 @@ export const projects: Project[] = [
   },
   {
     id: "02",
-    title: "Everyday notes",
-    subtitle: "흩어진 생각을 한곳에 모으기",
-    category: "웹",
-    kind: "notes",
-    tags: ["UI concept", "Web"],
-    sample: true,
+    title: "Yurika Online",
+    subtitle: "작은 야영지에서 시작되는 나만의 모험",
+    category: "게임",
+    kind: "game",
+    tags: ["JavaScript", "Canvas", "Firebase"],
+    sample: false,
     description:
-      "메모 서비스를 상상해 만든 프로젝트 카드 예시입니다. 실제 운영 중인 서비스가 아니며, 본인의 프로젝트 제목과 이미지, 작업 과정으로 교체해 사용할 수 있습니다.",
+      "브라우저에서 바로 시작하는 판타지 RPG입니다. 마법사·마녀·전사·궁수 중 직업을 선택하고, 야영지에서 준비한 뒤 필드를 탐험하며 캐릭터를 성장시킵니다. 전투부터 장비, 퀘스트와 저장까지 하나의 플레이 흐름으로 연결했습니다.",
     points: [
-      "어떤 문제에서 시작했는지 소개하기",
-      "내가 담당한 역할과 선택한 기술 적기",
-      "결과와 배운 점을 짧게 정리하기",
+      "네 가지 직업의 스킬과 실시간 필드 전투",
+      "장비·퀘스트·성장 기록과 Firebase 계정 저장",
+      "모바일 터치와 키보드 조작, PWA와 이미지 캐싱",
     ],
+    url: "https://github.com/ranke0802/yurikaonline/tree/mmorpg_online",
+    liveUrl: "https://ranke0802-yurika.web.app/",
   },
   {
     id: "03",

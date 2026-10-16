@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { profile, projects, stack } from "./content";
 import type { Category, Project } from "./content";
+import yurikaCamp from "./assets/yurika-camp.webp";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
@@ -26,31 +27,14 @@ function ProjectArt({ kind }: { kind: Project["kind"] }) {
         <div className="art-orbit" />
       </div>
     );
-  if (kind === "notes")
+  if (kind === "game")
     return (
-      <div className="project-art art-notes" aria-hidden="true">
-        <div className="note-sheet note-back">
-          <span>Ideas for tomorrow</span>
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="note-sheet note-front">
-          <div className="note-label">THE EVERYDAY EDIT</div>
-          <strong>
-            A little space
-            <br />
-            for your thoughts.
-          </strong>
-          <div className="note-rule" />
-          <p>
-            Make something.
-            <br />
-            Learn something.
-            <br />
-            Keep going.
-          </p>
-          <span className="note-flower">✳</span>
+      <div className="project-art art-game" aria-hidden="true">
+        <img src={yurikaCamp} alt="" loading="lazy" width="960" height="443" />
+        <span className="game-badge">BROWSER RPG</span>
+        <div className="game-caption">
+          <span>A LITTLE CAMP. A BIG ADVENTURE.</span>
+          <strong>Yurika <em>Online</em></strong>
         </div>
       </div>
     );
@@ -220,7 +204,7 @@ export default function App() {
               </h2>
             </div>
             <div className="filters" role="group" aria-label="프로젝트 분류">
-              {(["전체", "웹", "실험"] as Category[]).map((item) => (
+              {(["전체", "웹", "게임", "실험"] as Category[]).map((item) => (
                 <button
                   key={item}
                   className={category === item ? "active" : ""}
@@ -250,7 +234,7 @@ export default function App() {
                   <div className="project-meta">
                     <span>
                       {project.category} /{" "}
-                      {project.sample ? "예시 프로젝트" : "이 웹사이트"}
+                      {project.sample ? "예시 프로젝트" : project.kind === "portfolio" ? "이 웹사이트" : "플레이 가능"}
                     </span>
                     <span>{project.id}</span>
                   </div>
@@ -267,11 +251,16 @@ export default function App() {
                     <li key={tag}>{tag}</li>
                   ))}
                 </ul>
+                {project.liveUrl && (
+                  <a className="project-play text-link" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} 플레이하기 (새 탭)`}>
+                    플레이하기 <Arrow diagonal />
+                  </a>
+                )}
               </article>
             ))}
           </div>
           <p className="sample-note">
-            02와 03은 앞으로 채워갈 프로젝트를 위한 화면 예시입니다.
+            03은 앞으로 채워갈 프로젝트를 위한 화면 예시입니다.
           </p>
         </section>
 
@@ -409,9 +398,15 @@ export default function App() {
                 <li key={point}>{point}</li>
               ))}
             </ul>
+            <div className="project-actions">
+            {selected.liveUrl && (
+              <a className="button button-dark" href={selected.liveUrl} target="_blank" rel="noreferrer">
+                게임 플레이하기 <Arrow diagonal />
+              </a>
+            )}
             {selected.url && (
               <a
-                className="button button-dark"
+                className={selected.liveUrl ? "text-link" : "button button-dark"}
                 href={selected.url}
                 target="_blank"
                 rel="noreferrer"
@@ -419,6 +414,7 @@ export default function App() {
                 GitHub 소스 보기 <Arrow diagonal />
               </a>
             )}
+            </div>
           </div>
         )}
       </dialog>

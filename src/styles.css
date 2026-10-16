@@ -455,6 +455,47 @@ button {
   align-items: center;
   justify-content: center;
 }
+.art-game {
+  background: #30382c;
+  color: #fff8e8;
+}
+.art-game > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s;
+}
+.art-game::after {
+  content: "";
+  position: absolute;
+  inset: 30% 0 0;
+  background: linear-gradient(transparent, #17201ce6);
+  pointer-events: none;
+}
+.project-button:hover .art-game > img { transform: scale(1.035); }
+.game-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  border: 1px solid #fff8e85c;
+  background: #27352ac9;
+  border-radius: 20px;
+  padding: 7px 10px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+.art-game .game-caption {
+  position: absolute;
+  left: 22px;
+  bottom: 20px;
+  z-index: 1;
+}
+.game-caption > span { display: block; font-size: 8px; letter-spacing: 0.12em; margin-bottom: 7px; }
+.game-caption > strong { font-family: Georgia, serif; font-size: 29px; font-weight: 400; }
+.game-caption em { color: #e7d4a1; }
+.project-play { margin-top: 16px; font-size: 12px; }
+.project-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
 .mini-portfolio {
   z-index: 1;
   width: 78%;
