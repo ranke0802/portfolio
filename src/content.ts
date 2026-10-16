@@ -19,7 +19,7 @@ export type Project = {
   title: string;
   subtitle: string;
   category: Exclude<Category, "전체">;
-  kind: "portfolio" | "game" | "dashboard";
+  kind: "portfolio" | "game" | "dashboard" | "tetris";
   tags: string[];
   description: string;
   points: string[];
@@ -66,19 +66,21 @@ export const projects: Project[] = [
   },
   {
     id: "03",
-    title: "A little experiment",
-    subtitle: "데이터를 읽기 쉬운 화면으로",
-    category: "실험",
-    kind: "dashboard",
-    tags: ["UI concept", "Data"],
-    sample: true,
+    title: "Tetris DX",
+    subtitle: "픽셀 아케이드 감성으로 즐기는 테트리스",
+    category: "게임",
+    kind: "tetris",
+    tags: ["JavaScript", "Canvas", "Web Audio"],
+    sample: false,
     description:
-      "데이터 시각화 대시보드를 위한 화면 예시입니다. 실제 지표나 개발 성과를 나타내지 않습니다. 작은 사이드 프로젝트나 새로운 기술을 시험해 본 기록을 이 자리에 담아보세요.",
+      "네온과 픽셀 스타일을 담은 브라우저 테트리스입니다. 마라톤, 40라인 스프린트, 2분 울트라 모드로 즐길 수 있으며, 키보드와 모바일 터치 조작을 지원합니다.",
     points: [
-      "실험의 목표와 가설 정리하기",
-      "구현하면서 발견한 문제 기록하기",
-      "다음에 개선할 부분 남기기",
+      "7-BAG 랜덤 생성, SRS 회전과 T-스핀 판정",
+      "모바일 다이나믹 조이스틱, 탭 하드드롭과 홀드 버튼",
+      "Web Audio 8비트 사운드와 GitHub Pages 배포",
     ],
+    url: "https://github.com/ranke0802/tetris/tree/argon",
+    liveUrl: "https://ranke0802.github.io/tetris/",
   },
 ];
 

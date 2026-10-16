@@ -39,9 +39,9 @@ npm.cmd run preview # 빌드 결과 미리보기
 | `index.html`         | 브라우저 제목, 검색 설명, Open Graph 정보       |
 | `public/favicon.svg` | 브라우저 아이콘                                 |
 
-프로젝트 01은 이 저장소이며, 02는 [Yurika Online](https://ranke0802-yurika.web.app/) 게임입니다. 카드와 상세 화면의 플레이 버튼 및 GitHub 소스 링크는 `src/content.ts`에서 관리합니다. 03만 **실적이 아닌 명시적인 예시 콘텐츠**입니다. 자기소개 문구도 기본 예시이므로 본인 소개로 교체하세요. `profile.email`에 실제 주소를 입력하면 이메일 연락 버튼과 링크가 나타납니다. 빈 값일 때는 GitHub로 연결됩니다. 연락 폼이나 메시지 저장 기능은 없습니다.
+프로젝트 01은 이 저장소이며, 02는 [Yurika Online](https://ranke0802-yurika.web.app/) 게임입니다. 카드와 상세 화면의 플레이 버튼 및 GitHub 소스 링크는 `src/content.ts`에서 관리합니다. 03은 [Tetris DX](https://ranke0802.github.io/tetris/)이며 [argon 브랜치](https://github.com/ranke0802/tetris/tree/argon)의 게임으로 연결합니다. 자기소개 문구도 기본 예시이므로 본인 소개로 교체하세요. `profile.email`에 실제 주소를 입력하면 이메일 연락 버튼과 링크가 나타납니다. 빈 값일 때는 GitHub로 연결됩니다. 연락 폼이나 메시지 저장 기능은 없습니다.
 
-글꼴은 Google Fonts에서 불러오며, 접속할 수 없으면 시스템 글꼴로 표시합니다. 게임 카드 이미지는 `yurikaonline`의 기존 야영지 아트에서 만든 WebP 미리보기(`src/assets/yurika-camp.webp`)를 자체 호스팅합니다. 나머지 프로젝트 시각 자료는 CSS로 구성합니다.
+글꼴은 Google Fonts에서 불러오며, 접속할 수 없으면 시스템 글꼴로 표시합니다. 게임 카드 이미지는 `yurikaonline`의 기존 야영지 아트에서 만든 WebP 미리보기(`src/assets/yurika-camp.webp`)를 자체 호스팅합니다. 나머지 프로젝트 시각 자료는 CSS로 구성합니다. Tetris DX 카드는 픽셀 블록 형태의 CSS 미리보기를 사용합니다.
 
 ## Firebase 연결
 

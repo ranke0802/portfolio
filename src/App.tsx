@@ -27,6 +27,20 @@ function ProjectArt({ kind }: { kind: Project["kind"] }) {
         <div className="art-orbit" />
       </div>
     );
+  if (kind === "tetris")
+    return (
+      <div className="project-art art-tetris" aria-hidden="true">
+        <div className="tetris-preview">
+          {Array.from({ length: 80 }, (_, i) => {
+            const cells: Record<number, string> = { 14: "purple", 23: "purple", 24: "purple", 25: "purple", 48: "cyan", 49: "cyan", 50: "cyan", 51: "cyan", 58: "gold", 59: "gold", 65: "pink", 66: "pink", 68: "gold", 69: "gold", 74: "pink", 75: "pink", 76: "blue", 77: "blue", 78: "blue", 79: "blue" };
+            return <i key={i} className={cells[i] ? 'block-' + cells[i] : undefined} />;
+          })}
+        </div>
+        <span className="tetris-label">PIXEL ARCADE / 03</span>
+        <strong className="tetris-title">TETRIS<span>DX</span></strong>
+        <span className="tetris-mode">MARATHON · SPRINT · ULTRA</span>
+      </div>
+    );
   if (kind === "game")
     return (
       <div className="project-art art-game" aria-hidden="true">
@@ -259,9 +273,7 @@ export default function App() {
               </article>
             ))}
           </div>
-          <p className="sample-note">
-            03은 앞으로 채워갈 프로젝트를 위한 화면 예시입니다.
-          </p>
+
         </section>
 
         <section

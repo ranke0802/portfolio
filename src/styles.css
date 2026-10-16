@@ -1405,3 +1405,18 @@ button {
     animation: none !important;
   }
 }
+
+/* Tetris DX project preview */
+.art-tetris { background: #090d1a; color: #e2e8f0; font-family: monospace; }
+.tetris-preview { position: absolute; right: 22px; top: 22px; width: 140px; display: grid; grid-template-columns: repeat(10, 1fr); border: 2px solid #38bdf8; padding: 4px; gap: 1px; box-shadow: 0 0 24px #38bdf826; transform: rotate(7deg); }
+.tetris-preview i { aspect-ratio: 1; background: #141c2c; }
+.tetris-preview i[class] { border: 2px outset #ffffff55; }
+.block-purple { background: #a855f7 !important; }
+.block-cyan { background: #22d3ee !important; }
+.block-gold { background: #fbbf24 !important; }
+.block-pink { background: #f43f5e !important; }
+.block-blue { background: #3b82f6 !important; }
+.tetris-label { position: absolute; left: 22px; top: 22px; color: #94a3b8; font-size: 9px; letter-spacing: .12em; }
+.tetris-title { position: absolute; left: 22px; bottom: 51px; font-size: 37px; letter-spacing: -2px; text-shadow: 3px 3px #1e40af; }
+.tetris-title span { color: #22d3ee; margin-left: 8px; }
+.tetris-mode { position: absolute; left: 22px; bottom: 25px; color: #94a3b8; font-size: 9px; letter-spacing: .06em; }
