@@ -40,6 +40,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check visitor counter behavior
+        run: npm run test:visitors
+
       # Fork PRs only run CI. Credentials are available only to same-repository work.
       - name: Check Firebase configuration
         id: firebase

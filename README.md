@@ -41,7 +41,7 @@ npm.cmd run preview # 빌드 결과 미리보기
 
 프로젝트 01은 이 저장소이며, 02는 [Yurika Online](https://ranke0802-yurika.web.app/) 게임입니다. 카드와 상세 화면의 플레이 버튼 및 GitHub 소스 링크는 `src/content.ts`에서 관리합니다. 03은 [Tetris DX](https://ranke0802.github.io/tetris/)이며 [argon 브랜치](https://github.com/ranke0802/tetris/tree/argon)의 게임으로 연결합니다. 자기소개 문구도 기본 예시이므로 본인 소개로 교체하세요. `profile.email`에 실제 주소를 입력하면 이메일 연락 버튼과 링크가 나타납니다. 빈 값일 때는 GitHub로 연결됩니다. 연락 폼이나 메시지 저장 기능은 없습니다.
 
-글꼴은 Google Fonts에서 불러오며, 접속할 수 없으면 시스템 글꼴로 표시합니다. 게임 카드 이미지는 `yurikaonline`의 기존 야영지 아트에서 만든 WebP 미리보기(`src/assets/yurika-camp.webp`)를 자체 호스팅합니다. 나머지 프로젝트 시각 자료는 CSS로 구성합니다. Tetris DX 카드는 픽셀 블록 형태의 CSS 미리보기를 사용합니다.
+글꼴은 Google Fonts에서 불러오며, 접속할 수 없으면 시스템 글꼴로 표시합니다. Yurika 카드에는 기존 야영지 아트의 WebP 미리보기(`src/assets/yurika-camp.webp`), Moonforest 카드에는 제공된 모델링 화면의 WebP 썸네일(`src/assets/moonforest-3d.webp`)을 사용합니다. 포트폴리오와 Tetris DX 카드의 시각 자료는 CSS로 구성합니다.
 
 ## Firebase 연결
 
@@ -67,6 +67,18 @@ Firebase 변수와 Secret이 **모두 비어 있으면 빌드만 수행**하고 
 
 최초 연결 후 [Actions](https://github.com/ranke0802/portfolio/actions)에서 `Portfolio CI and Firebase Hosting` → `Run workflow` → `main`을 실행하면 추가 커밋 없이 배포할 수 있습니다.
 
-실제 인증 키는 저장소에 커밋하지 않습니다. 다운로드한 JSON은 저장소 밖에 두거나 무시되는 `.secrets/` 안에 보관하세요. Firebase Web SDK, Auth, Firestore는 현재 페이지에서 사용하지 않으며 Hosting만으로 동작합니다.
+실제 인증 키는 저장소에 커밋하지 않습니다. 다운로드한 JSON은 저장소 밖에 두거나 무시되는 `.secrets/` 안에 보관하세요. 페이지는 Firebase Hosting과 방문 통계용 Realtime Database REST API를 사용합니다. Web SDK, Auth, Firestore는 사용하지 않습니다.
 
 이 작업에서 발급한 실제 배포 계정 JSON은 로컬 `.secrets/firebase-service-account.json`에 보관됩니다. Git에서 제외되는 비공개 파일입니다. 예시 JSON과 혼동하지 마세요.
+
+## 프로젝트 실행과 방문 통계
+
+프로젝트 04는 [Moonforest 3D 전사·궁수 모델링 테스트](https://ranke0802.github.io/moonforest/ArcherPreviewSite/?character=warrior)입니다. 제공된 화면을 약 22KB WebP 썸네일로 사용합니다.
+
+게임과 데모의 실행 버튼은 현재 페이지의 모달에서 실행합니다. 데스크톱에서는 화면의 80% 너비·높이, 모바일에서는 화면에 맞는 너비·85% 높이를 사용합니다. iframe은 실행 버튼을 누른 뒤에만 생성하고 닫으면 제거합니다. 원본 게임은 각자의 기존 호스팅에서 실행되며, 사용자가 실제로 열면 해당 호스팅의 자산 전송이 발생합니다. GitHub 소스 링크와 모달의 선택적 ‘새 탭’ 링크는 별도 탭으로 열립니다.
+
+하단 방문 통계는 `project-e2f0a` Realtime Database의 `/portfolioStats/visits`만 사용합니다. 한국 시간 기준 브라우저별 하루 한 번, 서버의 원자적 증가로 `total`과 `days/YYYY-MM-DD`를 함께 갱신합니다. 페이지당 해당 날짜와 누적 숫자만 읽으며 실시간 구독·자동 재시도·전체 DB 읽기는 하지 않습니다. 브라우저에는 마지막 집계 날짜만 저장합니다.
+
+`ranke0802.web.app`과 `ranke0802.firebaseapp.com`만 집계하며 localhost·PR 미리보기는 제외합니다. 통계는 2026-10-21 기능 적용 이후부터 시작합니다. 누적은 일별 방문의 합이며 서로 다른 사람 수를 보장하지 않는 참고 통계입니다. 브라우저/저장소를 바꾸거나 지우면 다시 집계될 수 있고, 저장소 차단·통신 실패 시 누락될 수 있습니다. 기존 DB 접근 정책을 사용하며 게임의 데이터와 규칙은 변경하지 않습니다. 집계 실패 시 숫자를 임의로 표시하지 않습니다.
+
+검증: `npm run test:visitors`는 중복 집계·날짜 변경·통신 오류를 가짜 서버로 검사하며 실제 Firebase에 접속하지 않습니다. UI는 localhost에서 모달·필터·모바일 화면만 확인합니다.

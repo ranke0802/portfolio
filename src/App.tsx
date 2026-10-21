@@ -2,12 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import { profile, projects, stack } from "./content";
 import type { Category, Project } from "./content";
 import yurikaCamp from "./assets/yurika-camp.webp";
+import moonforestPreview from "./assets/moonforest-3d.webp";
+import VisitorCounter from "./VisitorCounter";
+import ProjectRunner from "./ProjectRunner";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
 }
 
 function ProjectArt({ kind }: { kind: Project["kind"] }) {
+  if (kind === "modeling")
+    return (
+      <div className="project-art art-modeling" aria-hidden="true">
+        <img src={moonforestPreview} alt="" loading="lazy" width="960" height="632" />
+        <span className="modeling-badge">MOONFOREST / 3D</span>
+        <span className="modeling-caption">CHARACTER PLAYGROUND</span>
+      </div>
+    );
   if (kind === "portfolio")
     return (
       <div className="project-art art-portfolio" aria-hidden="true">
@@ -78,6 +89,8 @@ function ProjectArt({ kind }: { kind: Project["kind"] }) {
 export default function App() {
   const [category, setCategory] = useState<Category>("전체");
   const [selected, setSelected] = useState<Project | null>(null);
+  const [running, setRunning] = useState<Project | null>(null);
+  const launchTrigger = useRef<HTMLElement | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const visibleProjects = projects.filter(
     (project) => category === "전체" || project.category === category,
@@ -86,14 +99,34 @@ export default function App() {
   useEffect(() => {
     if (selected) {
       dialog.current?.showModal();
-      const previous = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = previous;
-      };
+      return;
     }
     dialog.current?.close();
   }, [selected]);
+
+  const modalOpen = Boolean(selected || running);
+  useEffect(() => {
+    if (!modalOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
+  }, [modalOpen]);
+
+  function launchProject(project: Project, trigger: HTMLElement) {
+    launchTrigger.current = trigger;
+    setSelected(null);
+    setRunning(project);
+  }
+
+  function closeProject() {
+    const id = running?.id;
+    setRunning(null);
+    requestAnimationFrame(() => {
+      const trigger = launchTrigger.current?.isConnected ? launchTrigger.current
+        : document.querySelector<HTMLButtonElement>(`[data-project-id="${id}"] .project-button`);
+      trigger?.focus();
+    });
+  }
 
   return (
     <>
@@ -238,7 +271,7 @@ export default function App() {
           </p>
           <div className="projects-grid">
             {visibleProjects.map((project) => (
-              <article className="project" key={project.id}>
+              <article className="project" key={project.id} data-project-id={project.id}>
                 <button
                   className="project-button"
                   onClick={() => setSelected(project)}
@@ -248,7 +281,7 @@ export default function App() {
                   <div className="project-meta">
                     <span>
                       {project.category} /{" "}
-                      {project.sample ? "예시 프로젝트" : project.kind === "portfolio" ? "이 웹사이트" : "플레이 가능"}
+                      {project.sample ? "예시 프로젝트" : project.kind === "portfolio" ? "이 웹사이트" : project.kind === "modeling" ? "인터랙티브 데모" : "플레이 가능"}
                     </span>
                     <span>{project.id}</span>
                   </div>
@@ -266,9 +299,9 @@ export default function App() {
                   ))}
                 </ul>
                 {project.liveUrl && (
-                  <a className="project-play text-link" href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} 플레이하기 (새 탭)`}>
-                    플레이하기 <Arrow diagonal />
-                  </a>
+                  <button type="button" className="project-play text-link" onClick={event => launchProject(project, event.currentTarget)} aria-label={`${project.title} ${project.liveLabel ?? "플레이하기"} (화면에서 실행)`}>
+                    {project.liveLabel ?? "플레이하기"} <Arrow diagonal />
+                  </button>
                 )}
               </article>
             ))}
@@ -369,12 +402,15 @@ export default function App() {
         </section>
       </main>
       <footer className="site-footer container">
+        <div className="footer-main">
         <span>
           © {new Date().getFullYear()} {profile.name}. Built with curiosity.
         </span>
         <a href="#home">
           BACK TO TOP <span aria-hidden="true">↑</span>
         </a>
+        </div>
+        <VisitorCounter />
       </footer>
 
       <dialog
@@ -412,9 +448,9 @@ export default function App() {
             </ul>
             <div className="project-actions">
             {selected.liveUrl && (
-              <a className="button button-dark" href={selected.liveUrl} target="_blank" rel="noreferrer">
-                게임 플레이하기 <Arrow diagonal />
-              </a>
+              <button type="button" className="button button-dark" onClick={event => launchProject(selected, event.currentTarget)}>
+                {selected.liveLabel ?? "게임 플레이하기"} <Arrow diagonal />
+              </button>
             )}
             {selected.url && (
               <a
@@ -430,6 +466,7 @@ export default function App() {
           </div>
         )}
       </dialog>
+      {running && <ProjectRunner project={running} onClose={closeProject} />}
     </>
   );
 }

@@ -19,13 +19,14 @@ export type Project = {
   title: string;
   subtitle: string;
   category: Exclude<Category, "전체">;
-  kind: "portfolio" | "game" | "dashboard" | "tetris";
+  kind: "portfolio" | "game" | "dashboard" | "tetris" | "modeling";
   tags: string[];
   description: string;
   points: string[];
   sample: boolean;
   url?: string;
   liveUrl?: string;
+  liveLabel?: string;
 };
 
 export const projects: Project[] = [
@@ -81,6 +82,25 @@ export const projects: Project[] = [
     ],
     url: "https://github.com/ranke0802/tetris/tree/argon",
     liveUrl: "https://ranke0802.github.io/tetris/",
+  },
+  {
+    id: "04",
+    title: "3D 전사·궁수 모델링 테스트",
+    subtitle: "Moonforest · 캐릭터에 움직임을 더하는 실험",
+    category: "실험",
+    kind: "modeling",
+    tags: ["3D Modeling", "Animation", "GitHub Pages"],
+    sample: false,
+    description:
+      "전사와 궁수의 3D 모델과 전투 모션을 브라우저에서 살펴보는 캐릭터 플레이그라운드입니다. 캐릭터를 전환하고 직접 이동하거나 공격하며, 여러 각도에서 모델과 장비, 애니메이션을 확인할 수 있습니다.",
+    points: [
+      "전사 Violet Vanguard와 궁수 Azure Elf 캐릭터 전환",
+      "이동·공격 모션 테스트와 공격 속도 조절",
+      "드래그 회전·확대와 화질 설정으로 모델 살펴보기",
+    ],
+    url: "https://github.com/ranke0802/moonforest",
+    liveUrl: "https://ranke0802.github.io/moonforest/ArcherPreviewSite/?character=warrior",
+    liveLabel: "모델링 테스트 열기",
   },
 ];
 

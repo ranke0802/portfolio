@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "check": "tsc --noEmit",
+    "test:visitors": "node --test scripts/validate-visitors.mjs",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "firebase:configure": "node scripts/configure-firebase.mjs"
