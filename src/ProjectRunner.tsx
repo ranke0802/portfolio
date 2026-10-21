@@ -13,7 +13,7 @@ export default function ProjectRunner({ project, onClose }: { project: Project; 
     <dialog ref={dialog} className="project-runner" aria-labelledby="runner-title" onClose={onClose}
       onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
       <header className="runner-header">
-        <div className="runner-heading"><span>PROJECT {project.id} / LIVE</span><h2 id="runner-title">{project.title}</h2></div>
+        <div className="runner-heading"><h2 id="runner-title">{project.title}</h2></div>
         <a href={project.liveUrl} target="_blank" rel="noreferrer" className="runner-external" aria-label={`${project.title} 새 탭에서 열기`}>새 탭 ↗</a>
         <button type="button" className="close-button" autoFocus onClick={() => dialog.current?.close()} aria-label="프로젝트 실행 닫기">×</button>
       </header>
