@@ -3,6 +3,7 @@ import { profile, projects, stack } from "./content";
 import type { Category, Project } from "./content";
 import yurikaCamp from "./assets/yurika-camp.webp";
 import moonforestPreview from "./assets/moonforest-3d.webp";
+import bloomwardPreview from "./assets/bloomward-preview.webp";
 import VisitorCounter from "./VisitorCounter";
 import ProjectRunner from "./ProjectRunner";
 
@@ -11,6 +12,17 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 }
 
 function ProjectArt({ kind }: { kind: Project["kind"] }) {
+  if (kind === "bloomward")
+    return (
+      <div className="project-art art-game" aria-hidden="true">
+        <img src={bloomwardPreview} alt="" loading="lazy" width="960" height="540" />
+        <span className="game-badge">ESTATE & DEFENSE</span>
+        <div className="game-caption">
+          <span>THE NORTHERN LEGACY</span>
+          <strong>Bloomward</strong>
+        </div>
+      </div>
+    );
   if (kind === "modeling")
     return (
       <div className="project-art art-modeling" aria-hidden="true">
@@ -251,7 +263,7 @@ export default function App() {
               </h2>
             </div>
             <div className="filters" role="group" aria-label="프로젝트 분류">
-              {(["전체", "웹", "게임", "실험"] as Category[]).map((item) => (
+              {(["전체", "웹", "게임", "실험"] as Category[]).filter(item => item === "전체" || projects.some(project => project.category === item)).map((item) => (
                 <button
                   key={item}
                   className={category === item ? "active" : ""}

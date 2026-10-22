@@ -19,7 +19,7 @@ export type Project = {
   title: string;
   subtitle: string;
   category: Exclude<Category, "전체">;
-  kind: "portfolio" | "game" | "dashboard" | "tetris" | "modeling";
+  kind: "portfolio" | "game" | "dashboard" | "tetris" | "modeling" | "bloomward";
   tags: string[];
   description: string;
   points: string[];
@@ -32,20 +32,22 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "01",
-    title: "Personal portfolio",
-    subtitle: "나를 소개하는 가장 나다운 공간",
-    category: "웹",
-    kind: "portfolio",
-    tags: ["React", "TypeScript", "Firebase"],
+    title: "3D 전사·궁수 모델링 테스트",
+    subtitle: "Moonforest · 캐릭터에 움직임을 더하는 실험",
+    category: "실험",
+    kind: "modeling",
+    tags: ["3D Modeling", "Animation", "GitHub Pages"],
     sample: false,
     description:
-      "프로젝트와 개발 이야기를 모아 소개하는 개인 포트폴리오입니다. 지금 보고 있는 이 사이트이며, 다양한 화면 크기에 맞춰 편안하게 읽을 수 있도록 구성했습니다.",
+      "전사와 궁수의 3D 모델과 전투 모션을 브라우저에서 살펴보는 캐릭터 플레이그라운드입니다. 캐릭터를 전환하고 직접 이동하거나 공격하며, 여러 각도에서 모델과 장비, 애니메이션을 확인할 수 있습니다.",
     points: [
-      "반응형 레이아웃과 키보드 탐색",
-      "프로젝트 분류와 상세 보기",
-      "GitHub Actions와 Firebase Hosting 배포 구성",
+      "전사 Violet Vanguard와 궁수 Azure Elf 캐릭터 전환",
+      "이동·공격 모션 테스트와 공격 속도 조절",
+      "드래그 회전·확대와 화질 설정으로 모델 살펴보기",
     ],
-    url: "https://github.com/ranke0802/portfolio",
+    url: "https://github.com/ranke0802/moonforest",
+    liveUrl: "https://ranke0802.github.io/moonforest/ArcherPreviewSite/?character=warrior-v2",
+    liveLabel: "모델링 테스트 열기",
   },
   {
     id: "02",
@@ -85,22 +87,21 @@ export const projects: Project[] = [
   },
   {
     id: "04",
-    title: "3D 전사·궁수 모델링 테스트",
-    subtitle: "Moonforest · 캐릭터에 움직임을 더하는 실험",
-    category: "실험",
-    kind: "modeling",
-    tags: ["3D Modeling", "Animation", "GitHub Pages"],
+    title: "블룸워드",
+    subtitle: "BLOOMWARD · 북녘의 영지를 되찾는 디펜스",
+    category: "게임",
+    kind: "bloomward",
+    tags: ["JavaScript", "Canvas", "Defense"],
     sample: false,
     description:
-      "전사와 궁수의 3D 모델과 전투 모션을 브라우저에서 살펴보는 캐릭터 플레이그라운드입니다. 캐릭터를 전환하고 직접 이동하거나 공격하며, 여러 각도에서 모델과 장비, 애니메이션을 확인할 수 있습니다.",
+      "북녘의 영지를 가꾸고 성문을 지키는 판타지 디펜스 게임입니다. 자원을 모아 건물을 발전시키고, 가신과 장비를 성장시키며 북부 전선을 넓혀 갑니다. 플레이 기록은 현재 브라우저에 저장됩니다.",
     points: [
-      "전사 Violet Vanguard와 궁수 Azure Elf 캐릭터 전환",
-      "이동·공격 모션 테스트와 공격 속도 조절",
-      "드래그 회전·확대와 화질 설정으로 모델 살펴보기",
+      "자원 생산과 건설로 성장하는 영지",
+      "가신·장비 육성과 성문 웨이브 방어",
+      "북부 탐험과 브라우저 자동 저장",
     ],
-    url: "https://github.com/ranke0802/moonforest",
-    liveUrl: "https://ranke0802.github.io/moonforest/ArcherPreviewSite/?character=warrior",
-    liveLabel: "모델링 테스트 열기",
+    url: "https://github.com/ranke0802/portfolio/tree/main/public/games/bloomward",
+    liveUrl: "/games/bloomward/",
   },
 ];
 
